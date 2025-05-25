@@ -75,6 +75,7 @@ struct SearchBar: View {
         .background(
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.white.opacity(0.7))
+                .stroke(Color.gray.opacity(0.5), lineWidth: 1)
                 .backdrop(blur: 0)
         )
         .padding(.horizontal, 16)
@@ -104,7 +105,7 @@ struct SearchResultContainerView: View {
             if !searchResults.isEmpty {
                 List(searchResults) { book in
                     BookItemRow(book: book)
-                        .listRowBackground(Color.car)
+                        .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                 }
                 .listStyle(PlainListStyle())
