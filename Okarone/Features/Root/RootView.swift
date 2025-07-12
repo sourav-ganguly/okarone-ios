@@ -20,6 +20,7 @@ struct RootView: View {
                         Label("Feed", systemImage: "list.bullet")
                     }
             }
+            .accentColor(.blue)
         }
     }
 }

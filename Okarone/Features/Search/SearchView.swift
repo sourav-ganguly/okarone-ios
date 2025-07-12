@@ -100,19 +100,36 @@ struct SearchResultContainerView: View {
     var body: some View {
         VStack(spacing: 0) {
             if !searchResults.isEmpty {
-                List(searchResults) { book in
-                    BookItemRow(book: book)
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
+                if #available(iOS 26.0, *) {
+                    List(searchResults) { book in
+                        BookItemRow(book: book)
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                    }
+                    .listStyle(PlainListStyle())
+                    // .background(
+                    //     RoundedRectangle(cornerRadius: 12)
+                    //         .fill(Color.white.opacity(0.0))
+                    //         .backdrop(blur: 0.4)
+                    // )
+                    .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 12))
+                    .padding(.horizontal, 16)
+                    .padding(.top, 12)
+                } else {
+                    List(searchResults) { book in
+                        BookItemRow(book: book)
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                    }
+                    .listStyle(PlainListStyle())
+                     .background(
+                         RoundedRectangle(cornerRadius: 12)
+                             .fill(Color.white.opacity(0.0))
+                             .backdrop(blur: 0.4)
+                     )
+                    .padding(.horizontal, 16)
+                    .padding(.top, 12)
                 }
-                .listStyle(PlainListStyle())
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.white.opacity(0.0))
-                        .backdrop(blur: 0.4)
-                )
-                .padding(.horizontal, 16)
-                .padding(.top, 12)
             }
             
             Spacer()
