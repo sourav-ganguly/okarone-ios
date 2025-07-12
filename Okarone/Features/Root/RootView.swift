@@ -7,25 +7,35 @@
 import SwiftUI
 
 struct RootView: View {
+    @StateObject private var viewModel = RootViewModel()
+    
     var body: some View {
         ZStack {
             TabView {
-                SearchView()
-                    .tabItem {
-                        Label("Search", systemImage: "magnifyingglass")
-                    }
-                
-                FeedView()
-                    .tabItem {
-                        Label("Feed", systemImage: "list.bullet")
-                    }
+                ForEach(viewModel.tabs, id: \.self) { tab in
+                    tabView(for: tab)
+                        .tabItem {
+                            Label(tab.label, systemImage: tab.systemImage)
+                        }
+                }
             }
             .accentColor(.blue)
         }
     }
+    
+    @ViewBuilder
+    private func tabView(for tab: AppTab) -> some View {
+        switch tab {
+        case .bookstoreSearch:
+            SearchView()
+        case .okaroneFeed:
+            FeedView()
+        default:
+            Text(tab.label)
+        }
+    }
 }
 
-// #Preview is a swift macro
 #Preview {
     RootView()
 }
