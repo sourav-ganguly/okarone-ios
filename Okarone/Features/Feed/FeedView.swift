@@ -7,8 +7,10 @@ struct FeedView: View {
     var body: some View {
         NavigationView {
             WebView(url: youtubeChannelURL)
+                .ignoresSafeArea(.all, edges: .bottom)
         }
-        .background(Color.clear)
+        .background(Color.red)
+        .ignoresSafeArea(.all, edges: .horizontal)
     }
 }
 

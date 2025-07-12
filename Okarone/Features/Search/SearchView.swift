@@ -6,8 +6,6 @@ struct SearchView: View {
     
     var body: some View {
         NavigationView {
-
-
                 VStack(spacing: 0) {
                     // Search Bar in top area
                     SearchBar(searchText: $searchText, searchResults: $searchResults)
@@ -17,11 +15,10 @@ struct SearchView: View {
                     SearchResultContainerView(searchResults: $searchResults)
                 }
                 .background(
-
                         Image("appBg")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .ignoresSafeArea(.all, edges: .top)
+                            .ignoresSafeArea(.all, edges: .all)
                 )
 
         }

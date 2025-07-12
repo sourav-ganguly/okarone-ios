@@ -23,7 +23,7 @@ final class OkaroneUITests: XCTestCase {
     }
 
     @MainActor
-    func testExample() throws {
+    func testApplicationLaunchesSuccessfully() throws {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launch()
@@ -32,7 +32,7 @@ final class OkaroneUITests: XCTestCase {
     }
 
     @MainActor
-    func testLaunchPerformance() throws {
+    func testApplicationLaunchPerformance() throws {
         // This measures how long it takes to launch your application.
         measure(metrics: [XCTApplicationLaunchMetric()]) {
             XCUIApplication().launch()
