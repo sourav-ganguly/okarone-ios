@@ -8,10 +8,10 @@ import SwiftUI
 
 class RootViewModel: ObservableObject {
     @Published var tabs: [AppTab] = []
-    private let tabProvider: AppTabProvider
+    private let getAppTabsUseCase: GetAppTabsUseCase
     
-    init(tabProvider: AppTabProvider = DefaultAppTabProvider()) {
-        self.tabProvider = tabProvider
-        self.tabs = tabProvider.getTabs()
+    init(getAppTabsUseCase: GetAppTabsUseCase = GetAppTabsUseCaseImpl()) {
+        self.getAppTabsUseCase = getAppTabsUseCase
+        self.tabs = getAppTabsUseCase.execute()
     }
 }
