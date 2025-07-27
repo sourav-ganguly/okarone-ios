@@ -30,6 +30,8 @@ struct RootView: View {
             SearchView()
         case .okaroneFeed:
             FeedView()
+        case .readForToday:
+            TodayRead()
         default:
             Text(tab.label)
         }

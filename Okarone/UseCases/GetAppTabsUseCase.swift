@@ -9,6 +9,7 @@ class GetAppTabsUseCaseImpl: GetAppTabsUseCase {
         return [
             .bookstoreSearch,
             .okaroneFeed,
+            .readForToday,
         ]
     }   
 }
