@@ -34,8 +34,8 @@ struct GetAppTabsUseCaseTests {
         // Then
         #expect(result.count >= 3)
         #expect(result[0] == .bookstoreSearch)
-        #expect(result[1] == .okaroneFeed)
-        #expect(result[2] == .readForToday)
+        #expect(result[1] == .readForToday)
+        #expect(result[2] == .okaroneFeed)
     }
     
     @Test func testExecuteReturnsValidAppTabInstances() async throws {

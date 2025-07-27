@@ -8,8 +8,8 @@ class GetAppTabsUseCaseImpl: GetAppTabsUseCase {
     func execute() -> [AppTab] {
         return [
             .bookstoreSearch,
-            .okaroneFeed,
             .readForToday,
+            .okaroneFeed,
         ]
     }   
 }
