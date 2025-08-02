@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BookDetailView: View {
+struct SearchDetailView: View {
     let book: SearchResultItem
     
     var body: some View {
@@ -58,24 +58,29 @@ struct DetailSection: View {
     let title: String
     let englishText: String
     let bengaliText: String
-    
+
+    let showEnglish = false
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 2) {
             Text(title)
                 .font(.headline)
                 .fontWeight(.semibold)
                 .foregroundColor(.primary)
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(englishText)
-                    .font(.body)
-                    .foregroundColor(.primary)
-                
+
+                if showEnglish {
+                    Text(englishText)
+                        .font(.body)
+                        .foregroundColor(.primary)
+                }
+
                 Text(bengaliText)
                     .font(.body)
                     .foregroundColor(.secondary)
             }
-            .padding(.leading, 8)
+            .padding(.leading, 4)
         }
     }
 }
@@ -85,7 +90,9 @@ struct LocationDetailRow: View {
     let title: String
     let englishText: String
     let bengaliText: String
-    
+
+    let showEnglish = false
+
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             Image(systemName: icon)
@@ -98,11 +105,13 @@ struct LocationDetailRow: View {
                     .font(.subheadline)
                     .fontWeight(.medium)
                     .foregroundColor(.primary)
-                
-                Text(englishText)
-                    .font(.body)
-                    .foregroundColor(.primary)
-                
+
+                if showEnglish {
+                    Text(englishText)
+                        .font(.body)
+                        .foregroundColor(.primary)
+                }
+
                 Text(bengaliText)
                     .font(.body)
                     .foregroundColor(.secondary)
@@ -123,36 +132,35 @@ struct BookDetailContentView: View {
         VStack(alignment: .leading, spacing: 8) {
             // Header with book title
             VStack(alignment: .leading, spacing: 8) {
-                Text(book.bookEN)
+                Text(book.bookBN)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.primary)
-                
-                Text(book.bookBN)
-                    .font(.title2)
-                    .fontWeight(.medium)
-                    .foregroundColor(.secondary)
             }
             .padding(.bottom, 10)
             
             // Author information
             DetailSection(
-                title: "Author / লেখক",
+                title: "লেখক",
                 englishText: book.authorEN,
                 bengaliText: book.authorBN
             )
-            
+
+            Spacer(minLength: 10)
+
             // Publisher information
             DetailSection(
-                title: "Publisher / প্রকাশক",
+                title: "প্রকাশক",
                 englishText: book.publisherEN,
                 bengaliText: book.publisherBN
             )
-            
+
+            Spacer(minLength: 10)
+
             // Location information
             VStack(alignment: .leading, spacing: 16) {
                 Text("Location / অবস্থান")
-                    .font(.headline)
+                    .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
                 
@@ -183,7 +191,7 @@ struct BookDetailContentView: View {
                 }
             }
             
-//            Spacer(minLength: 20)
+            Spacer(minLength: 20)
         }
     }
 }
@@ -192,7 +200,7 @@ struct BookDetailContentView: View {
 
 #Preview {
     NavigationView {
-        BookDetailView(book: SearchResultItem(
+        SearchDetailView(book: SearchResultItem(
             id: "1",
             bookEN: "The Great Gatsby",
             bookBN: "দ্য গ্রেট গ্যাটসবি",

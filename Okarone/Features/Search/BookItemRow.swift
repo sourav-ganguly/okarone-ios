@@ -13,7 +13,7 @@ struct BookItemRow: View {
     let book: BookItem
     
     var body: some View {
-        NavigationLink(destination: BookDetailView(book: convertToSearchResultItem())) {
+        NavigationLink(destination: SearchDetailView(book: convertToSearchResultItem())) {
             HStack(spacing: 12) {
                 // Book Cover Placeholder
                 RoundedRectangle(cornerRadius: 8)
