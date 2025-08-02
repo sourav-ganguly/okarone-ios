@@ -2,12 +2,12 @@ import SwiftUI
 
 // MARK: - Supporting Models and Views
 
-struct BookItem: Identifiable {
-    let id: String
-    let title: String
-    let author: String
-    let coverURL: String?
-}
+//struct BookItem: Identifiable {
+//    let id: String
+//    let title: String
+//    let author: String
+//    let coverURL: String?
+//}
 
 struct BookItemRow: View {
     let book: BookItem
@@ -26,12 +26,12 @@ struct BookItemRow: View {
                 
                 // Book Details
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(book.title)
+                    Text(book.bookBN)
                         .font(.headline)
                         .foregroundColor(.primary)
                         .lineLimit(2)
                     
-                    Text(book.author)
+                    Text(book.authorBN)
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                         .lineLimit(1)
@@ -52,18 +52,18 @@ struct BookItemRow: View {
     private func convertToSearchResultItem() -> SearchResultItem {
         return SearchResultItem(
             id: book.id,
-            bookEN: book.title,
-            bookBN: book.title, // Using English title as placeholder for Bengali
-            authorEN: book.author,
-            authorBN: book.author, // Using English author as placeholder for Bengali
-            publisherEN: "Sample Publisher",
-            publisherBN: "স্যাম্পল প্রকাশক",
-            stallEN: "Stall A-1",
-            stallBN: "স্টল এ-১",
-            directionEN: "Near the main entrance",
-            directionBN: "মূল প্রবেশপথের কাছে",
-            blockEN: "Block A",
-            blockBN: "ব্লক এ"
+            bookEN: book.bookEN,
+            bookBN: book.bookBN, // Using English title as placeholder for Bengali
+            authorEN: book.authorEN,
+            authorBN: book.authorBN, // Using English author as placeholder for Bengali
+            publisherEN: book.publisherEN,
+            publisherBN: book.publisherBN,
+            stallEN: book.stallEN,
+            stallBN: book.stallBN,
+            directionEN: book.directionEN,
+            directionBN: book.directionBN,
+            blockEN: book.blockEN,
+            blockBN: book.blockBN
         )
     }
 }

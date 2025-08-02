@@ -32,11 +32,7 @@ struct SearchView: View {
             searchResults = []
         } else {
             // Mock search results
-            searchResults = [
-                BookItem(id: "1", title: "Sample Book 1", author: "Author 1", coverURL: nil),
-                BookItem(id: "2", title: "Sample Book 2", author: "Author 2", coverURL: nil),
-                BookItem(id: "3", title: "Sample Book 3", author: "Author 3", coverURL: nil)
-            ].filter { $0.title.localizedCaseInsensitiveContains(query) || $0.author.localizedCaseInsensitiveContains(query) }
+            searchResults = searchResults.filter { $0.bookBN.localizedCaseInsensitiveContains(query) || $0.authorBN.localizedCaseInsensitiveContains(query) }
         }
     }
 }
@@ -85,11 +81,7 @@ struct SearchBar: View {
             searchResults = []
         } else {
             // Mock search results
-            searchResults = [
-                BookItem(id: "1", title: "Sample Book 1", author: "Author 1", coverURL: nil),
-                BookItem(id: "2", title: "Sample Book 2", author: "Author 2", coverURL: nil),
-                BookItem(id: "3", title: "Sample Book 3", author: "Author 3", coverURL: nil)
-            ].filter { $0.title.localizedCaseInsensitiveContains(query) || $0.author.localizedCaseInsensitiveContains(query) }
+            searchResults = [].filter { $0.bookBN.localizedCaseInsensitiveContains(query) || $0.authorBN.localizedCaseInsensitiveContains(query) }
         }
     }
 }
