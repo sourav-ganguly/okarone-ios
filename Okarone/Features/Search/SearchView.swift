@@ -107,11 +107,6 @@ struct SearchResultContainerView: View {
                             .listRowSeparator(.hidden)
                     }
                     .listStyle(PlainListStyle())
-                    // .background(
-                    //     RoundedRectangle(cornerRadius: 12)
-                    //         .fill(Color.white.opacity(0.0))
-                    //         .backdrop(blur: 0.4)
-                    // )
                     .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 12))
                     .padding(.horizontal, 16)
                     .padding(.top, 12)
