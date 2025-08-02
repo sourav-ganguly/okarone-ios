@@ -3,7 +3,7 @@ import SwiftUI
 struct SearchView: View {
     @State private var searchText = ""
     @State private var searchResults: [BookItem] = []
-    
+
     var body: some View {
         NavigationView {
                 VStack(spacing: 0) {
@@ -24,7 +24,7 @@ struct SearchView: View {
         }
 
     }
-    
+
     private func performSearch(query: String) {
         // TODO: Implement actual search logic
         // For now, we'll create some mock data when searching
@@ -44,20 +44,20 @@ struct SearchView: View {
 struct SearchBar: View {
     @Binding var searchText: String
     @Binding var searchResults: [BookItem]
-    
+
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
                 .padding(.leading, 12)
-            
+
             TextField("Search books...", text: $searchText)
                 .textFieldStyle(PlainTextFieldStyle())
                 .padding(.vertical, 12)
                 .onChange(of: searchText) { newValue in
                     performSearch(query: newValue)
                 }
-            
+
             if !searchText.isEmpty {
                 Button(action: {
                     searchText = ""
@@ -77,7 +77,7 @@ struct SearchBar: View {
         )
         .padding(.horizontal, 16)
     }
-    
+
     private func performSearch(query: String) {
         // TODO: Implement actual search logic
         // For now, we'll create some mock data when searching
@@ -96,7 +96,7 @@ struct SearchBar: View {
 
 struct SearchResultContainerView: View {
     @Binding var searchResults: [BookItem]
-    
+
     var body: some View {
         VStack(spacing: 0) {
             if !searchResults.isEmpty {
@@ -131,7 +131,7 @@ struct SearchResultContainerView: View {
                     .padding(.top, 12)
                 }
             }
-            
+
             Spacer()
         }
     }
