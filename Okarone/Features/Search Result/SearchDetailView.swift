@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchDetailView: View {
     let book: SearchResultItem
-    
+
     var body: some View {
         ZStack {
             // Background image
@@ -17,11 +17,11 @@ struct SearchDetailView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .ignoresSafeArea(.all, edges: .all)
-            
+
             // Glass effect container
             VStack {
                 Spacer()
-                
+
                 if #available(iOS 26.0, *) {
                     ScrollView {
                         BookDetailContentView(book: book)
@@ -43,7 +43,7 @@ struct SearchDetailView: View {
                     .padding(.horizontal, 10)
                     .padding(.vertical, 20)
                 }
-                
+
                 Spacer()
             }
         }
@@ -67,7 +67,7 @@ struct DetailSection: View {
                 .font(.headline)
                 .fontWeight(.semibold)
                 .foregroundColor(.primary)
-            
+
             VStack(alignment: .leading, spacing: 4) {
 
                 if showEnglish {
@@ -99,7 +99,7 @@ struct LocationDetailRow: View {
                 .font(.title3)
                 .foregroundColor(.blue)
                 .frame(width: 24)
-            
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .font(.subheadline)
@@ -116,7 +116,7 @@ struct LocationDetailRow: View {
                     .font(.body)
                     .foregroundColor(.secondary)
             }
-            
+
             Spacer()
         }
         .padding(.vertical, 4)
@@ -127,7 +127,7 @@ struct LocationDetailRow: View {
 
 struct BookDetailContentView: View {
     let book: SearchResultItem
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             // Header with book title
@@ -138,7 +138,7 @@ struct BookDetailContentView: View {
                     .foregroundColor(.primary)
             }
             .padding(.bottom, 10)
-            
+
             // Author information
             DetailSection(
                 title: "লেখক",
@@ -163,7 +163,7 @@ struct BookDetailContentView: View {
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
-                
+
                 VStack(alignment: .leading, spacing: 12) {
                     // Stall information
                     LocationDetailRow(
@@ -172,7 +172,7 @@ struct BookDetailContentView: View {
                         englishText: book.stallEN,
                         bengaliText: book.stallBN
                     )
-                    
+
                     // Block information
                     LocationDetailRow(
                         icon: "square.grid.3x3",
@@ -180,7 +180,7 @@ struct BookDetailContentView: View {
                         englishText: book.blockEN,
                         bengaliText: book.blockBN
                     )
-                    
+
                     // Direction information
                     LocationDetailRow(
                         icon: "location",
@@ -190,7 +190,7 @@ struct BookDetailContentView: View {
                     )
                 }
             }
-            
+
             Spacer(minLength: 20)
         }
     }
@@ -216,4 +216,4 @@ struct BookDetailContentView: View {
             blockBN: "ব্লক বি"
         ))
     }
-} 
+}
