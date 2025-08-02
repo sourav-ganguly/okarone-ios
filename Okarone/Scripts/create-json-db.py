@@ -8,6 +8,7 @@ from typing import List
 from dataclasses import dataclass, asdict
 import csv
 import os
+import uuid
 
 @dataclass
 class BookItem:
@@ -27,6 +28,10 @@ class BookItem:
     Block_BN: str
     Duplicate: bool = False
 
+def generate_unique_id() -> str:
+    """Generate a unique UUID for each book item"""
+    return str(uuid.uuid4())
+
 def read_from_csv_file(file_path: str = "BookListDB.csv") -> List[BookItem]:
     """
     Read book data from a CSV file
@@ -41,7 +46,7 @@ def read_from_csv_file(file_path: str = "BookListDB.csv") -> List[BookItem]:
                 duplicate = row.get('Duplicate', '').lower() in ['true', '1', 'yes']
                 
                 book_item = BookItem(
-                    ID=row.get('ID', ''),
+                    ID=generate_unique_id(),  # Generate unique UUID for each item
                     Book_EN=row.get('Book_EN', ''),
                     Book_BN=row.get('Book_BN', ''),
                     Author_EN=row.get('Author_EN', ''),
@@ -76,7 +81,6 @@ def read_sample_data() -> List[BookItem]:
     """
     sample_data = [
         {
-            "ID": "অগ্নিমঙ্গল",
             "Book_EN": "Muhammad Nizam",
             "Book_BN": "মুহম্মদ নিজাম",
             "Author_EN": "Bayanna",
@@ -92,7 +96,6 @@ def read_sample_data() -> List[BookItem]:
             "Duplicate": False
         },
         {
-            "ID": "অপরাজেয় বাংলা",
             "Book_EN": "Ghulam Ashraf Khan is brilliant",
             "Book_BN": "গোলাম আশরাফ খান উজ্জ্বল",
             "Author_EN": "Bayanna",
@@ -108,7 +111,6 @@ def read_sample_data() -> List[BookItem]:
             "Duplicate": False
         },
         {
-            "ID": "অমাবস্যার ফুল আসো তোমায় চাঁদের গল্প বলি",
             "Book_EN": "Iftekhar Hossain Noor",
             "Book_BN": "ইফতেখার হোছাইন নূর",
             "Author_EN": "Bayanna",
@@ -124,7 +126,6 @@ def read_sample_data() -> List[BookItem]:
             "Duplicate": False
         },
         {
-            "ID": "অল্প কথার গল্প",
             "Book_EN": "Kazi Abu Taher",
             "Book_BN": "কাজী আবু তাহের",
             "Author_EN": "Bayanna",
@@ -140,7 +141,6 @@ def read_sample_data() -> List[BookItem]:
             "Duplicate": False
         },
         {
-            "ID": "আজ কোথাও বৃষ্টি হবে না",
             "Book_EN": "Iftekhar Hossain Noor",
             "Book_BN": "ইফতেখার হোছাইন নূর",
             "Author_EN": "Bayanna",
@@ -159,7 +159,9 @@ def read_sample_data() -> List[BookItem]:
     
     book_items = []
     for item_data in sample_data:
-        book_item = BookItem(**item_data)
+        # Add unique ID to each sample item
+        item_data_with_id = {"ID": generate_unique_id(), **item_data}
+        book_item = BookItem(**item_data_with_id)
         book_items.append(book_item)
     
     return book_items
