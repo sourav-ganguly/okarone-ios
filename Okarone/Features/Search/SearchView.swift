@@ -3,12 +3,14 @@ import SwiftUI
 struct SearchView: View {
     @State private var searchText = ""
     @State private var searchResults: [BookItem] = []
+    @State private var allBooks: [BookItem] = []
+    private let bookRepository = BookRepository()
 
     var body: some View {
         NavigationView {
                 VStack(spacing: 0) {
                     // Search Bar in top area
-                    SearchBar(searchText: $searchText, searchResults: $searchResults)
+                    SearchBar(searchText: $searchText, searchResults: $searchResults, allBooks: allBooks)
                         .padding(.top, 8)
 
                     // Search Results
@@ -20,26 +22,22 @@ struct SearchView: View {
                             .aspectRatio(contentMode: .fill)
                             .ignoresSafeArea(.all, edges: .all)
                 )
-
+                .onAppear {
+                    loadBookList()
+                }
         }
-
     }
 
-    private func performSearch(query: String) {
-        // TODO: Implement actual search logic
-        // For now, we'll create some mock data when searching
-        if query.isEmpty {
-            searchResults = []
-        } else {
-            // Mock search results
-            searchResults = searchResults.filter { $0.bookBN.localizedCaseInsensitiveContains(query) || $0.authorBN.localizedCaseInsensitiveContains(query) }
-        }
+    private func loadBookList() {
+        allBooks = bookRepository.getLocalBookData()
+        print("📚 Loaded \(allBooks.count) books for search")
     }
 }
 
 struct SearchBar: View {
     @Binding var searchText: String
     @Binding var searchResults: [BookItem]
+    let allBooks: [BookItem]
 
     var body: some View {
         HStack {
@@ -75,13 +73,19 @@ struct SearchBar: View {
     }
 
     private func performSearch(query: String) {
-        // TODO: Implement actual search logic
-        // For now, we'll create some mock data when searching
         if query.isEmpty {
             searchResults = []
         } else {
-            // Mock search results
-            searchResults = [].filter { $0.bookBN.localizedCaseInsensitiveContains(query) || $0.authorBN.localizedCaseInsensitiveContains(query) }
+            // Search in both Bengali and English fields
+            searchResults = allBooks.filter { book in
+                book.bookBN.localizedCaseInsensitiveContains(query) ||
+                book.bookEN.localizedCaseInsensitiveContains(query) ||
+                book.authorBN.localizedCaseInsensitiveContains(query) ||
+                book.authorEN.localizedCaseInsensitiveContains(query) ||
+                book.publisherBN.localizedCaseInsensitiveContains(query) ||
+                book.publisherEN.localizedCaseInsensitiveContains(query)
+            }
+            print("🔍 Found \(searchResults.count) results for query: '\(query)'")
         }
     }
 }
