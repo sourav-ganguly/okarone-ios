@@ -11,77 +11,44 @@ struct BookDetailView: View {
     let book: SearchResultItem
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                // Header with book title
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(book.bookEN)
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.primary)
-                    
-                    Text(book.bookBN)
-                        .font(.title2)
-                        .fontWeight(.medium)
-                        .foregroundColor(.secondary)
-                }
-                .padding(.bottom, 10)
+        ZStack {
+            // Background image
+            Image("appBg")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .ignoresSafeArea(.all, edges: .all)
+            
+            // Glass effect container
+            VStack {
+                Spacer()
                 
-                // Author information
-                DetailSection(
-                    title: "Author / লেখক",
-                    englishText: book.authorEN,
-                    bengaliText: book.authorBN
-                )
-                
-                // Publisher information
-                DetailSection(
-                    title: "Publisher / প্রকাশক",
-                    englishText: book.publisherEN,
-                    bengaliText: book.publisherBN
-                )
-                
-                // Location information
-                VStack(alignment: .leading, spacing: 16) {
-                    Text("Location / অবস্থান")
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.primary)
-                    
-                    VStack(alignment: .leading, spacing: 12) {
-                        // Stall information
-                        LocationDetailRow(
-                            icon: "building.2",
-                            title: "Stall / স্টল",
-                            englishText: book.stallEN,
-                            bengaliText: book.stallBN
-                        )
-                        
-                        // Block information
-                        LocationDetailRow(
-                            icon: "square.grid.3x3",
-                            title: "Block / ব্লক",
-                            englishText: book.blockEN,
-                            bengaliText: book.blockBN
-                        )
-                        
-                        // Direction information
-                        LocationDetailRow(
-                            icon: "location",
-                            title: "Direction / দিকনির্দেশনা",
-                            englishText: book.directionEN,
-                            bengaliText: book.directionBN
-                        )
+                if #available(iOS 26.0, *) {
+                    ScrollView {
+                        BookDetailContentView(book: book)
+                            .padding()
                     }
+                    .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 12))
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 20)
+                } else {
+                    ScrollView {
+                        BookDetailContentView(book: book)
+                            .padding()
+                    }
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color.white.opacity(0.1))
+                            .backdrop(blur: 0.4)
+                    )
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 20)
                 }
                 
-                Spacer(minLength: 20)
+                Spacer()
             }
-            .padding()
         }
         .navigationTitle("Book Details")
         .navigationBarTitleDisplayMode(.inline)
-        .background(Color(.systemGroupedBackground))
     }
 }
 
@@ -144,6 +111,80 @@ struct LocationDetailRow: View {
             Spacer()
         }
         .padding(.vertical, 4)
+    }
+}
+
+// MARK: - Book Detail Content View
+
+struct BookDetailContentView: View {
+    let book: SearchResultItem
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            // Header with book title
+            VStack(alignment: .leading, spacing: 8) {
+                Text(book.bookEN)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(.primary)
+                
+                Text(book.bookBN)
+                    .font(.title2)
+                    .fontWeight(.medium)
+                    .foregroundColor(.secondary)
+            }
+            .padding(.bottom, 10)
+            
+            // Author information
+            DetailSection(
+                title: "Author / লেখক",
+                englishText: book.authorEN,
+                bengaliText: book.authorBN
+            )
+            
+            // Publisher information
+            DetailSection(
+                title: "Publisher / প্রকাশক",
+                englishText: book.publisherEN,
+                bengaliText: book.publisherBN
+            )
+            
+            // Location information
+            VStack(alignment: .leading, spacing: 16) {
+                Text("Location / অবস্থান")
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+                
+                VStack(alignment: .leading, spacing: 12) {
+                    // Stall information
+                    LocationDetailRow(
+                        icon: "building.2",
+                        title: "Stall / স্টল",
+                        englishText: book.stallEN,
+                        bengaliText: book.stallBN
+                    )
+                    
+                    // Block information
+                    LocationDetailRow(
+                        icon: "square.grid.3x3",
+                        title: "Block / ব্লক",
+                        englishText: book.blockEN,
+                        bengaliText: book.blockBN
+                    )
+                    
+                    // Direction information
+                    LocationDetailRow(
+                        icon: "location",
+                        title: "Direction / দিকনির্দেশনা",
+                        englishText: book.directionEN,
+                        bengaliText: book.directionBN
+                    )
+                }
+            }
+            
+//            Spacer(minLength: 20)
+        }
     }
 }
 
