@@ -76,16 +76,25 @@ struct SearchBar: View {
         if query.isEmpty {
             searchResults = []
         } else {
-            // Search in both Bengali and English fields
-            searchResults = allBooks.filter { book in
-                book.bookBN.localizedCaseInsensitiveContains(query) ||
-                book.bookEN.localizedCaseInsensitiveContains(query) ||
-                book.authorBN.localizedCaseInsensitiveContains(query) ||
-                book.authorEN.localizedCaseInsensitiveContains(query) ||
-                book.publisherBN.localizedCaseInsensitiveContains(query) ||
-                book.publisherEN.localizedCaseInsensitiveContains(query)
+            // Perform search on background thread
+            DispatchQueue.global(qos: .userInitiated).async {
+                // Search in both Bengali and English fields
+                let results = allBooks.filter { book in
+                    book.bookBN.localizedCaseInsensitiveContains(query) ||
+                    book.bookEN.localizedCaseInsensitiveContains(query) ||
+                    book.authorBN.localizedCaseInsensitiveContains(query) ||
+                    book.authorEN.localizedCaseInsensitiveContains(query) ||
+                    book.publisherBN.localizedCaseInsensitiveContains(query) ||
+                    book.publisherEN.localizedCaseInsensitiveContains(query)
+                }
+                
+                print("🔍 Found \(results.count) results for query: '\(query)'")
+                
+                // Update UI on main thread
+                DispatchQueue.main.async {
+                    searchResults = results
+                }
             }
-            print("🔍 Found \(searchResults.count) results for query: '\(query)'")
         }
     }
 }
