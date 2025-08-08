@@ -1,0 +1,7 @@
+# No external dependencies required for CSV reading
+# The script uses only Python standard library modules:
+# - json
+# - csv
+# - dataclasses
+# - typing
+# - os 

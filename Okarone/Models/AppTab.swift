@@ -11,11 +11,11 @@ enum AppTab: String, CaseIterable {
         case .home:
             return "Home"
         case .bookstoreSearch:
-            return "Search"
+            return "খুঁজুন"
         case .okaroneFeed:
-            return "Feed"
+            return "আমাদের ভিডিও"
         case .readForToday:
-            return "Read"
+            return "আজকে পড়ুন"
         }
     }
 
